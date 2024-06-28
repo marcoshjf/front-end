@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap');
+
+:root {
+    --cor-de-fundo: #EBECEE;
+    --cor-de-fundo-rodape: #6600DB;
+    --branco: #FFFFFF;
+    --cor-letras: #6600DB;
+    --laranja: #EB9B00;
+    --preto:#2F2F2F;
+    --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%);
+    --fonte-principal: Karantina; 
+}
+
+  
+body {
+    width: 100%;
+    background-color: var(--cor-de-fundo);
+    font-family: var(--fonte-principal);
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.estoque{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 2em;
+    margin-right: 1em;
+    background-color: var(--branco);
+    padding: 1.5em;
+    border-radius: 1.5em;
+    border: 1px solid gray;
+    box-shadow: 5px 5px grey;
+}
+
+.estoque-titulo{
+    font-family: var(--fonte-outras);
+    color: var(--cor-letras);
+    font-size: 2em;
+    font-weight: 1000;
+}
+
+.estoque-sub{
+    font-family: var(--fonte-outras);
+    color: var(--preto);
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-right: 10em;
+    margin-top: 3em;
+}
+
+.item{
+    justify-content: space-between;
+    font-family: var(--fonte-outras);
+    color: var(--preto);
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 0.5em;
+    margin-right: 11.5em;
+}
+
+
+
+.rodape {
+    margin-top: 53em;
+    width: 29em;
+    background-color: var(--cor-de-fundo-rodape);
+}
+
+.container__rodape{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container__img-rodape{
+    width: 5em;
+    height: 3em;
+    padding: 1em;
+}
+
+.container__estoque-rel{
+    margin-top: -0.2em;
+    margin-left: 1em;
+    border-radius: 1em;
+    background-color: var(--branco);
+}
+.container__funcionario{
+    margin-top: 0em;
+    margin-left: 0em;
+    border-radius: 0em;
+    background-color: var(--cor-de-fundo-rodape);
+}
+.cabeçalho__menu-hamburguer {
+    width: 30px;
+    height: 24px;
+    background-image: url("../img/Menu.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.cabeçalho {
+    margin: auto;
+    background-color: var(--branco);
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    position: relative;
+    width: 29em;
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    
+
+}
+.logo{
+    color: var(--cor-letras);
+    font-weight: 500;
+    font-size: 2em;
+    font-family: var(--fonte-principal);
+    margin-right: 6em;
+    margin-left: 1em;
+}
+
+.container_imagem{
+    padding: 2em;
+}
+.container__imagem-tesoura {
+    width: 4em;
+    height: 3em;
+    padding: 1em;
+    border-radius: 1.5em;
+}
+
+.container__botao:checked~.lista-menu {
+    display: block;
+}
+
+.container__botao {
+    display: none;
+}

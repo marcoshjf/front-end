@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --cor-de-fundo: #EBECEE;
+    --cor-de-fundo-rodape: #6600DB;
+    --branco: #FFFFFF;
+    --cor-letras: #6600DB;
+    --laranja: #EB9B00;
+    --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%);
+    --fonte-principal: Karantina; 
+    --fonte-outras: Inter;
+}
+
+  
+body {
+    width: 100%;
+    background-color: var(--cor-de-fundo);
+    font-family: var(--fonte-principal);
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.cabeçalho__menu-hamburguer {
+    width: 25px;
+    height: 24px;
+    background-image: url("../componentes/img/Menu.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.cabeçalho {
+    margin: auto;
+    background-color: var(--branco);
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    position: relative;
+    width: 29em;
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    
+
+}
+.logo{
+    color: var(--cor-letras);
+    font-weight: 500;
+    font-size: 2em;
+    font-family: var(--fonte-principal);
+    margin-right: 6em;
+    margin-left: 1em;
+}
+
+.container_imagem{
+    padding: 2em;
+}
+.container__imagem-tesoura {
+    width: 2.5em;
+    height: 2em;
+    padding: 1em;
+    border-radius: 1.5em;
+    /* box-shadow: 1.5px 1.5px grey; */
+}
+
+.container__botao:checked~.lista-menu {
+    display: block;
+}
+
+.container__botao {
+    display: none;
+}
+
+.botoes{
+    display: flex;
+    justify-content: space-between;
+    margin: 7em 2em 0em 3em;
+    align-items: center;
+}
+
+.cancelar{
+    background-color: var(--branco);
+    color: var(--cor-letras);
+    border: 1px solid var(--cor-letras);
+    border-radius: 1em;
+    padding: 2em;
+    width: 12em;
+    box-shadow: 1.5px 1.5px grey;
+}
+
+.confirmar{
+    background-color: var(--cor-letras);
+    color: var(--branco);
+    border: 1px solid var(--branco);
+    padding: 2em;
+    border-radius: 1em;
+    width: 12em;
+    box-shadow: 1.5px 1.5px grey;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+
+
+.banner__titulo {
+    font-family: var(--fonte-outras);
+    color: var(--cor-letras);
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+
+.valor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 2em;
+    margin-right: 1em;
+    background-color: var(--branco);
+    padding: 1.5em;
+    border-radius: 1.5em;
+    border: 1px solid gray;
+    box-shadow: 5px 5px grey;
+}
+
+.banner__valor{
+    font-family: var(--fonte-outras);
+    color: var(--cor-letras);
+    font-weight: 700;
+    margin-right: 9em;
+}
+
+.banner__valores{
+    padding: 1.5em;
+    border: 1px ;
+    border-radius: 1em;
+    margin-top: 1em;
+    margin-right: 8em;
+}
+
+::placeholder{
+    padding: -0.1em;
+    color: var(--cor-letras);
+    font-weight: 500;
+    font-family: var(--fonte-outras);
+    font-size: 3em;
+    outline: none;
+}
+
+.search {
+    
+    font-size: 3em;
+}
+
+.servico, .produto, .geladeira{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 2em;
+    margin-right: 1em;
+    background-color: var(--branco);
+    padding: 1.5em;
+    border-radius: 1em;
+    border: 1px solid gray;
+    box-shadow: 2px 2px grey;
+}
+
+.carrossel_serv, .carrossel_prod, .carrossel_gela{
+    font-family: var(--fonte-outras);
+    color: var(--cor-letras);
+    font-weight: 700;
+    margin-right: 15em;
+}
