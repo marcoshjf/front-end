@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -29,6 +28,3 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-=======
-PESSOAL, PARA USAR ESTE ARQUIVO, BASTA VOCÊ ABRIR A PASTA NA SUA MAQUINA E NO VSCODE ABRIR O TERMINAL, ANTES DE INICIAR O "NPM RUN DEV", REALIZAR O "NPM I" PARA QUE SEJA INSTALADO A PASTA NODE MODULES, CASO HAJA ALGUM PROBLEMA PODE ME ACIONAR.
->>>>>>> 65aa46897235fdf6dd4d75c87e6f2f723a4eb197

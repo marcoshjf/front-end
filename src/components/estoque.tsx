@@ -3,13 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../styles/estoque.css";
 
 interface EstoqueState {
-  cerveja1: number;
-  cerveja2: number;
-  aguaSGas: number;
-  aguaCGas: number;
-  lata1: number;
-  lata2: number;
-  achocolatado: number;
+  [key: string]: number;
 }
 
 const Estoque: React.FC = () => {
@@ -27,6 +21,8 @@ const Estoque: React.FC = () => {
       achocolatado: 0
     };
   });
+
+  const [newItemName, setNewItemName] = useState('');
 
   useEffect(() => {
     localStorage.setItem('estoque', JSON.stringify(estoque));
@@ -77,6 +73,28 @@ const Estoque: React.FC = () => {
     }));
   };
 
+  const handleNewItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewItemName(event.target.value);
+  };
+
+  const handleAddNewItem = () => {
+    if (newItemName && !(newItemName in estoque)) {
+      setEstoque(prevState => ({
+        ...prevState,
+        [newItemName]: 0
+      }));
+      setNewItemName('');
+    }
+  };
+
+  const handleDeleteItem = (itemName: keyof EstoqueState) => {
+    setEstoque(prevState => {
+      const newState = { ...prevState };
+      delete newState[itemName];
+      return newState;
+    });
+  };
+
   return (
     <div>
       <header className="cabecalho">
@@ -113,9 +131,19 @@ const Estoque: React.FC = () => {
                   onChange={(e) => handleInputChange(item as keyof EstoqueState, e)}
                 />
                 <button onClick={() => increment(item as keyof EstoqueState)}>+</button>
+                <button onClick={() => handleDeleteItem(item as keyof EstoqueState)}>Excluir</button>
               </div>
             </div>
           ))}
+        </div>
+        <div className="new-item-form">
+          <input
+            type="text"
+            value={newItemName}
+            onChange={handleNewItemChange}
+            placeholder="Nome do novo item"
+          />
+          <button onClick={handleAddNewItem}>Adicionar Item</button>
         </div>
       </section>
 

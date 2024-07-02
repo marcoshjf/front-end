@@ -5,12 +5,15 @@ import Cadastro_vendas from './router/cadastro_vendas';
 import Estoque from './router/estoque_item';
 import Administrador from './components/administrador';
 import Fluxo from './components/fluxo';
+import CadastroFuncionario from './components/cadastro_func';
+
 
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/cadFunc" element={<CadastroFuncionario />} />
         <Route path="/home" element={<Home />} />
         <Route path="/cadastro-vendas" element={<Cadastro_vendas />}/>
         <Route path="/estoque_item" element={<Estoque />} />

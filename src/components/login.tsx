@@ -8,14 +8,17 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (username === '1' && password === '1') {
-      navigate('/adm_user');
-    } 
-    else if (username === '2' && password === '2') {
-      navigate('/cadastro_vendas')
-    }
-    else {
-      alert('Usuário ou senha inválidos');
+    const funcionarios = JSON.parse(localStorage.getItem('funcionarios') || '[]');
+    const funcionario = funcionarios.find((func: { email: string, senha: string, isAdmin: boolean }) => func.email === username && func.senha === password);
+
+    if (funcionario) {
+      if (funcionario.isAdmin) {
+        navigate('/adm_user');
+      } else {
+        navigate('/cadastro_vendas');
+      }
+    } else {
+      alert('Usuário ou senha inválidos, favor verificar a senha ou e-mail digitado');
     }
   };
 

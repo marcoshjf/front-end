@@ -60,6 +60,10 @@ const Administrador: React.FC = () => {
     setBarbeiros([]);
   };
 
+  const handleCadastroFuncionarioClick = () => {
+    navigate('/cadFunc');
+  };
+
   return (
     <div>
       <header className="cabeçalho">
@@ -112,6 +116,9 @@ const Administrador: React.FC = () => {
           </div>
           <div className="container__reset" onClick={handleResetClick} role="button" tabIndex={0}>
             <img src="public/assets/icones/reset(branco).png" alt="Resetar" className="container__img-rodape" />
+          </div>
+          <div className="container__cadastro-funcionario" onClick={handleCadastroFuncionarioClick} role="button" tabIndex={0}>
+            <img src="public/assets/icones/cadastro_funcionario.png" alt="Cadastro de Funcionário" className="container__img-rodape" />
           </div>
         </div>
       </footer>

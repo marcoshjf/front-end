@@ -9,32 +9,21 @@ import CadVendas from './router/cadastro_vendas';
 import Estoque from './router/estoque_item.tsx';
 import Administrador from './router/adm_user';
 import Fluxo from './router/fluxo_caixa.tsx';
-import Servico from './router/outlet_serv';
-import Produto from './router/outlet_prod.tsx';
-import Geladeira from './router/outlet_serv.tsx';
+import CadastroFuncionario from './components/cadastro_func.tsx';
 
 const router = createBrowserRouter([
+  {
+    path: "/cadFunc",
+    element: <CadastroFuncionario />,
+  },
   {
     path: "/",
     element: <Home />,
   },
+  
   {
     path: "cadastro_vendas",
     element: <CadVendas />,
-    children: [
-      {
-        path: "servico",
-        element: <Servico />,
-      },
-      {
-        path: "produto",
-        element: <Produto />,
-      },
-      {
-        path: "geladeira",
-        element: <Geladeira />,
-      },
-    ],
   },
   {
     path: "estoque_item",

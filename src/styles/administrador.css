@@ -167,9 +167,13 @@ body {
     box-shadow: 1.5px 1.5px grey;
   }
   
-  /* .container__img-rodape {
-    width: 40px;
-    height: 40px;
+  .container__cadastro-funcionario {
+    cursor: pointer;
+    display: inline-block;
     margin: 10px;
-  } */
+  }
+  
+  
+  
+  
   

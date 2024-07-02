@@ -12,40 +12,27 @@ interface Precos {
   [key: string]: number;
 }
 
+interface Item {
+  idPedido: string;
+  nome: string;
+  preco: number;
+  categoria: string;
+}
+
 const CadVendas: React.FC = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState<{ [key: number]: boolean }>({});
   const [selectedItems, setSelectedItems] = useState<SelectedItems>({
-    Servicos: {
-      Corte: false,
-      Nevou: false,
-      Barba: false,
-      Bigode: false,
-    },
-    Produtos: {
-      Cerveja1: false,
-      Cerveja2: false,
-      "Agua s/ Gás": false,
-      "Agua c/ Gás": false,
-      Lata1: false,
-      Lata2: false,
-      Achocolatado: false,
-    },
-    Geladeira: {
-      Cerveja1: false,
-      Cerveja2: false,
-      "Agua s/ Gás": false,
-      "Agua c/ Gás": false,
-      Lata1: false,
-      Lata2: false,
-      Achocolatado: false,
-    }
+    Servicos: {},
+    Produtos: {},
+    Geladeira: {},
   });
 
   const [precos, setPrecos] = useState<Precos>(() => {
     const savedPrecos = localStorage.getItem('precos');
     return savedPrecos ? JSON.parse(savedPrecos) : {};
   });
+
   const [valorTotal, setValorTotal] = useState<number>(0);
   const [valorServicos, setValorServicos] = useState<number>(0);
   const [valorProdutos, setValorProdutos] = useState<number>(0);
@@ -55,30 +42,185 @@ const CadVendas: React.FC = () => {
     navigate("/");
   };
 
-  const handleConfirm = () => {
-    const newBarbeiro = {
+  // Função para fazer o POST do cabeçalho e retornar o idPedido
+  const postCabecalho = async () => {
+    const cabecalhoData = {
       valorTotal,
       valorServicos,
       valorProdutos,
       valorGeladeira,
     };
-    const barbeiros = JSON.parse(localStorage.getItem('barbeiros') || '[]');
-    barbeiros.push(newBarbeiro);
-    localStorage.setItem('barbeiros', JSON.stringify(barbeiros));
-    navigate("/adm_user", {
-      state: { barbeiros },
+
+    try {
+      const response = await fetch('http://localhost:8080/cabecalho', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cabecalhoData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post cabecalho');
+      }
+
+      const responseData = await response.json();
+      return responseData.idPedido; // Supondo que a resposta contém o idPedido
+    } catch (error) {
+      console.error('Error posting cabecalho:', error);
+      return null;
+    }
+  };
+
+  // Função para fazer o POST dos itens do pedido
+  const postItens = async (idPedido: string) => {
+    const itens: Item[] = [];
+
+    Object.keys(selectedItems.Servicos).forEach((item) => {
+      if (selectedItems.Servicos[item]) {
+        itens.push({
+          idPedido,
+          nome: item,
+          preco: precos[item],
+          categoria: 'Servico',
+        });
+      }
     });
+
+    Object.keys(selectedItems.Produtos).forEach((item) => {
+      if (selectedItems.Produtos[item]) {
+        itens.push({
+          idPedido,
+          nome: item,
+          preco: precos[item],
+          categoria: 'Produto',
+        });
+      }
+    });
+
+    Object.keys(selectedItems.Geladeira).forEach((item) => {
+      if (selectedItems.Geladeira[item]) {
+        itens.push({
+          idPedido,
+          nome: item,
+          preco: precos[item],
+          categoria: 'Geladeira',
+        });
+      }
+    });
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/pedidos/${idPedido}/itens`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(itens),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post itens');
+      }
+
+      console.log('Itens posted successfully');
+    } catch (error) {
+      console.error('Error posting itens:', error);
+    }
+  };
+
+  // Função para confirmar o pedido, fazendo o POST do cabeçalho e dos itens
+  const handleConfirm = async () => {
+    const idPedido = await postCabecalho();
+
+    if (idPedido) {
+      await postItens(idPedido);
+      // Recupera a lista de barbeiros do localStorage
+      const barbeiros = JSON.parse(localStorage.getItem('barbeiros') || '[]');
+      // Adiciona o novo pedido à lista
+      barbeiros.push({ idPedido, valorTotal, valorServicos, valorProdutos, valorGeladeira });
+      // Atualiza a lista no localStorage
+      localStorage.setItem('barbeiros', JSON.stringify(barbeiros));
+      // Navega para a página de administração de usuários com o estado atualizado
+      navigate("/adm_user", {
+        state: { barbeiros },
+      });
+    } else {
+      console.error('Failed to create cabecalho');
+    }
   };
 
   const handleCancel = () => {
     navigate('/');
   };
 
-  const toggleMenu = (menuId: number) => {
+  const toggleMenu = async (menuId: number) => {
     setMenuOpen(prevState => ({
       ...prevState,
       [menuId]: !prevState[menuId]
     }));
+
+    if (!isMenuOpen[menuId]) {
+      try {
+        const response = await fetch('http://localhost:8080/produto');
+        const data = await response.json();
+        console.log('API Response:', data);
+
+        if (Array.isArray(data)) {
+          const newServicos = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Servico" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          const newProdutos = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Produto" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          const newGeladeira = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Geladeira" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          setSelectedItems(prevState => ({
+            ...prevState,
+            Servicos: {
+              ...prevState.Servicos,
+              ...newServicos
+            },
+            Produtos: {
+              ...prevState.Produtos,
+              ...newProdutos
+            },
+            Geladeira: {
+              ...prevState.Geladeira,
+              ...newGeladeira
+            }
+          }));
+
+          const newPrecos = data.reduce((acc: any, item: any) => {
+            if (item.nomeProduto) {
+              acc[item.nomeProduto] = item.preco;
+            }
+            return acc;
+          }, {});
+
+          setPrecos(prevState => ({
+            ...prevState,
+            ...newPrecos
+          }));
+        } else {
+          console.error('Error: API response is not an array', data);
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    }
   };
 
   const handleCheckboxChange = (section: keyof SelectedItems, itemName: string) => {
