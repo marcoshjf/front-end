@@ -280,6 +280,74 @@ const CadVendas: React.FC = () => {
     setValorTotal(total);
   }, [selectedItems, precos]);
 
+  useEffect(() => {
+    // Carregar itens na inicialização
+    const fetchItensFromAPI = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/produto');
+        const data = await response.json();
+        console.log('API Response:', data);
+
+        if (Array.isArray(data)) {
+          const newServicos = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Servico" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          const newProdutos = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Produto" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          const newGeladeira = data.reduce((acc: any, item: any) => {
+            if (item.categoria === "Geladeira" && item.nomeProduto) {
+              acc[item.nomeProduto] = false;
+            }
+            return acc;
+          }, {});
+
+          setSelectedItems(prevState => ({
+            ...prevState,
+            Servicos: {
+              ...prevState.Servicos,
+              ...newServicos
+            },
+            Produtos: {
+              ...prevState.Produtos,
+              ...newProdutos
+            },
+            Geladeira: {
+              ...prevState.Geladeira,
+              ...newGeladeira
+            }
+          }));
+
+          const newPrecos = data.reduce((acc: any, item: any) => {
+            if (item.nomeProduto) {
+              acc[item.nomeProduto] = item.preco;
+            }
+            return acc;
+          }, {});
+
+          setPrecos(prevState => ({
+            ...prevState,
+            ...newPrecos
+          }));
+        } else {
+          console.error('Error: API response is not an array', data);
+        }
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+
+    fetchItensFromAPI();
+  }, []);
+
   return (
     <div>
       <header className="cabecalho">
