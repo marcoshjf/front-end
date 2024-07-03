@@ -1,146 +1,202 @@
+/* Importa a fonte 'Karantina' do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap');
 
+/* Define variáveis CSS globais */
 :root {
-    --cor-de-fundo: #EBECEE;
-    --cor-de-fundo-rodape: #6600DB;
-    --branco: #FFFFFF;
-    --cor-letras: #6600DB;
-    --laranja: #EB9B00;
-    --preto:#2F2F2F;
-    --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%);
-    --fonte-principal: Karantina; 
+    --cor-de-fundo: #EBECEE;               /* Cor de fundo padrão */
+    --cor-de-fundo-rodape: #6600DB;        /* Cor de fundo do rodapé */
+    --branco: #FFFFFF;                     /* Cor branca */
+    --cor-letras: #6600DB;                 /* Cor das letras principal */
+    --laranja: #EB9B00;                    /* Cor laranja */
+    --preto: #2F2F2F;                      /* Cor preta */
+    --azul-degrade: linear-gradient(97.54deg, #002F52 35.49%, #326589 165.37%); /* Gradiente azul */
+    --fonte-principal: Karantina;          /* Fonte principal */
 }
 
-  
+/* Estilos para o corpo da página */
 body {
-    width: 100%;
-    background-color: var(--cor-de-fundo);
-    font-family: var(--fonte-principal);
-    font-size: 16px;
-    font-weight: 400;
-
+    width: 100%;                           /* Largura total */
+    background-color: var(--cor-de-fundo); /* Cor de fundo conforme variável */
+    font-family: var(--fonte-principal);    /* Fonte principal */
+    font-size: 16px;                       /* Tamanho da fonte */
+    font-weight: 400;                      /* Peso da fonte */
 }
 
-.estoque{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-    margin-left: 2em;
-    margin-right: 1em;
-    background-color: var(--branco);
-    padding: 1.5em;
-    border-radius: 1.5em;
-    border: 1px solid gray;
-    box-shadow: 5px 5px grey;
+/* Estilos para a seção 'estoque' */
+.estoque {
+    display: flex;                         /* Flex container */
+    flex-direction: column;                /* Coluna principal */
+    align-items: center;                   /* Centraliza os itens */
+    margin-top: 10%;                       /* Margem superior */
+    margin-left: 2em;                      /* Margem esquerda */
+    margin-right: 1em;                     /* Margem direita */
+    background-color: var(--branco);       /* Cor de fundo conforme variável */
+    padding: 1.5em;                        /* Espaçamento interno */
+    border-radius: 1.5em;                  /* Raio do border */
+    border: 1px solid gray;                /* Borda sólida cinza */
+    box-shadow: 5px 5px grey;              /* Sombra */
+}
+
+/* Estilos para o título da seção 'estoque' */
+.estoque-titulo {
+    font-family: var(--fonte-outras);      /* Fonte para outros textos */
+    color: var(--cor-letras);              /* Cor do texto conforme variável */
+    font-size: 2em;                        /* Tamanho da fonte */
+    font-weight: 1000;                     /* Peso da fonte */
+}
+
+/* Estilos para o subtítulo da seção 'estoque' */
+.estoque-sub {
+    font-family: var(--fonte-outras);      /* Fonte para outros textos */
+    color: var(--preto);                   /* Cor do texto conforme variável */
+    font-size: 1.5em;                      /* Tamanho da fonte */
+    font-weight: 700;                      /* Peso da fonte */
+    margin-right: 10em;                    /* Margem direita */
+    margin-top: 3em;                       /* Margem superior */
+}
+
+/* Estilos para itens dentro da seção 'estoque' */
+.item {
+    justify-content: space-between;        /* Espaçamento entre itens */
+    font-family: var(--fonte-outras);      /* Fonte para outros textos */
+    color: var(--preto);                   /* Cor do texto conforme variável */
+    font-size: 1.5em;                      /* Tamanho da fonte */
+    font-weight: 700;                      /* Peso da fonte */
+    margin-top: 0.5em;                     /* Margem superior */
+    margin-right: 11.5em;                  /* Margem direita */
+}
+
+/* Estilos para o rodapé */
+.rodape {
+    margin-top: 0em;                       /* Margem superior */
+    width: 29em;                           /* Largura */
+    background-color: var(--cor-de-fundo-rodape); /* Cor de fundo conforme variável */
+}
+
+/* Estilos para o contêiner do rodapé */
+.container__rodape {
+    display: flex;                         /* Flex container */
+    justify-content: space-between;        /* Espaçamento entre itens */
+}
+
+/* Estilos para imagens dentro do rodapé */
+.container__img-rodape {
+    width: 5em;                            /* Largura */
+    height: 3em;                           /* Altura */
+    padding: 1em;                          /* Espaçamento interno */
+}
+
+/* Estilos para inputs genéricos */
+input {
+    display: flex;                         /* Flex container */
+    margin-bottom: 25px;                          /* Margem */
+}
+
+/* Estilos para o contêiner 'estoque-rel' */
+.container__estoque-rel {
+    margin-top: -0.2em;                    /* Margem superior negativa */
+    margin-left: 1em;                      /* Margem esquerda */
+    border-radius: 1em;                    /* Raio do border */
+    background-color: #ececec;             /* Cor de fundo */
+}
+
+/* Estilos para o contêiner 'funcionario' */
+.container__funcionario {
+    margin-top: 0em;                       /* Margem superior */
+    margin-left: 0em;                      /* Margem esquerda */
+    border-radius: 0em;                    /* Raio do border */
+    background-color: var(--cor-de-fundo-rodape); /* Cor de fundo conforme variável */
+}
+
+/* Estilos para o ícone de menu hamburguer */
+.cabeçalho__menu-hamburguer {
+    width: 100%;                           /* Largura */
+    height: 24px;                          /* Altura */
+    background-image: url("../img/Menu.svg"); /* Imagem de fundo */
+    background-repeat: no-repeat;          /* Não repetir */
+    background-position: center;           /* Posição central */
+    display: inline-block;                 /* Display inline-block */
+}
+
+/* Estilos para o cabeçalho */
+.cabeçalho {
+    margin: auto;                          /* Centraliza */
+    background-color: var(--branco);       /* Cor de fundo conforme variável */
+    display: flex;                         /* Flex container */
+    justify-content: space-between;        /* Espaçamento entre itens */
+    align-items: center;                   /* Centraliza verticalmente */
+    position: relative;                    /* Posição relativa */
+}
+
+/* Estilos para o contêiner */
+.container {
+    display: flex;                         /* Flex container */
+    align-items: center;                   /* Centraliza verticalmente */
+}
+
+/* Estilos para a logo */
+.logo {
+    color: var(--cor-letras);              /* Cor do texto conforme variável */
+    font-weight: 500;                      /* Peso da fonte */
+    font-size: 2em;                        /* Tamanho da fonte */
+    font-family: var(--fonte-principal);   /* Fonte principal */
+    margin-right: 6em;                     /* Margem direita */
+    margin-left: 1em;                      /* Margem esquerda */
+}
+
+/* Estilos para o contêiner de imagem */
+.container_imagem {
+    padding: 2em;                          /* Espaçamento interno */
+}
+
+/* Estilos para a imagem de tesoura */
+.container__imagem-tesoura {
+    width: 4em;                            /* Largura */
+    height: 3em;                           /* Altura */
+    padding: 1em;                          /* Espaçamento interno */
+    border-radius: 1.5em;                  /* Raio do border */
+}
+
+/* Estilos para a lista de menu ao clicar no botão */
+.container__botao:checked~.lista-menu {
+    display: block;                        /* Exibir lista de menu */
+}
+
+/* Estilos para o botão de menu */
+.container__botao {
+    display: none;                         /* Oculta o botão */
+}
+
+label{
+    color: #6600DB;
+    font-size:larger;
+    font-family:inter;
+    font-weight: 500;
 }
 
 .estoque-titulo{
-    font-family: var(--fonte-outras);
-    color: var(--cor-letras);
-    font-size: 2em;
-    font-weight: 1000;
+    color: #3a007c;
 }
 
-.estoque-sub{
-    font-family: var(--fonte-outras);
-    color: var(--preto);
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-right: 10em;
+button{
+    background-color: var(--cor-botao);
+    height: 3em;
+    width: 21em;
     margin-top: 3em;
-}
-
-.item{
-    justify-content: space-between;
-    font-family: var(--fonte-outras);
-    color: var(--preto);
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-top: 0.5em;
-    margin-right: 11.5em;
-}
-
-
-
-.rodape {
-    margin-top: 53em;
-    width: 29em;
-    background-color: var(--cor-de-fundo-rodape);
-}
-
-.container__rodape{
-    display: flex;
-    justify-content: space-between;
-}
-
-.container__img-rodape{
-    width: 5em;
-    height: 3em;
-    padding: 1em;
-}
-
-.container__estoque-rel{
-    margin-top: -0.2em;
-    margin-left: 1em;
+    padding: 0.5em;
+    border: var(--cor-letras);
     border-radius: 1em;
-    background-color: var(--branco);
-}
-.container__funcionario{
-    margin-top: 0em;
-    margin-left: 0em;
-    border-radius: 0em;
-    background-color: var(--cor-de-fundo-rodape);
-}
-.cabeçalho__menu-hamburguer {
-    width: 30px;
-    height: 24px;
-    background-image: url("../img/Menu.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: inline-block;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: var(--font-letras);
 }
 
-.cabeçalho {
-    margin: auto;
-    background-color: var(--branco);
+button:hover{
+    background-color: #3d0083;
+    color: #ffffff;
+}
+
+.input-wrapper{
     display: flex;
-    justify-content:space-between;
-    align-items: center;
-    position: relative;
-    width: 29em;
-    
-}
-
-.container {
-    display: flex;
-    align-items: center;
-    
-
-}
-.logo{
-    color: var(--cor-letras);
-    font-weight: 500;
-    font-size: 2em;
-    font-family: var(--fonte-principal);
-    margin-right: 6em;
-    margin-left: 1em;
-}
-
-.container_imagem{
-    padding: 2em;
-}
-.container__imagem-tesoura {
-    width: 4em;
-    height: 3em;
-    padding: 1em;
-    border-radius: 1.5em;
-}
-
-.container__botao:checked~.lista-menu {
-    display: block;
-}
-
-.container__botao {
-    display: none;
+    flex-direction: column;
 }

@@ -186,7 +186,7 @@ const Estoque: React.FC = () => {
   return (
     <div>
       <header className="cabecalho">
-        <div className="container">
+        <div className="container-esse">
           <div className="container">
             <h1 className="logo">proBARBER</h1>
             <a href="#" onClick={handleLoginClick}>
@@ -225,43 +225,59 @@ const Estoque: React.FC = () => {
           ))}
         </div>
         <div className="new-item-details-form">
-          <input
-            type="text"
-            name="nomeProduto"
-            value={newItemDetails.nomeProduto}
-            onChange={handleDetailChange}
-            placeholder="Nome do Produto"
-          />
-          <input
-            type="text"
-            name="descricao"
-            value={newItemDetails.descricao}
-            onChange={handleDetailChange}
-            placeholder="Descrição"
-          />
-          <input
-            type="number"
-            name="preco"
-            value={newItemDetails.preco}
-            onChange={handleDetailChange}
-            placeholder="Preço"
-          />
-          <input
-            type="number"
-            name="quantidadeEstoque"
-            value={newItemDetails.quantidadeEstoque}
-            onChange={handleDetailChange}
-            placeholder="Quantidade em Estoque"
-          />
-          <input
-            type="text"
-            name="categoria"
-            value={newItemDetails.categoria}
-            onChange={handleDetailChange}
-            placeholder="Categoria"
-          />
-          <button onClick={handleAddItemToAPI}>Adicionar Item na API</button>
-        </div>
+  <div className="input-wrapper">
+    <label htmlFor="nomeProduto">Nome:</label>
+    <input
+      type="text"
+      id="nomeProduto"
+      name="nomeProduto"
+      value={newItemDetails.nomeProduto}
+      onChange={handleDetailChange}
+    />
+  </div>
+  <div className="input-wrapper">
+    <label htmlFor="descricao">Descrição:</label>
+    <input
+      type="text"
+      id="descricao"
+      name="descricao"
+      value={newItemDetails.descricao}
+      onChange={handleDetailChange}
+    />
+  </div>
+  <div className="input-wrapper">
+    <label htmlFor="preco">Preço:</label>
+    <input
+      type="number"
+      id="preco"
+      name="preco"
+      value={newItemDetails.preco}
+      onChange={handleDetailChange}
+    />
+  </div>
+  <div className="input-wrapper">
+    <label htmlFor="quantidadeEstoque">Quantidade:</label>
+    <input
+      type="number"
+      id="quantidadeEstoque"
+      name="quantidadeEstoque"
+      value={newItemDetails.quantidadeEstoque}
+      onChange={handleDetailChange}
+    />
+  </div>
+  <div className="input-wrapper">
+    <label htmlFor="categoria">Categoria:</label>
+    <input
+      type="text"
+      id="categoria"
+      name="categoria"
+      value={newItemDetails.categoria}
+      onChange={handleDetailChange}
+    />
+  </div>
+  <button onClick={handleAddItemToAPI}>Adicionar</button>
+</div>
+
       </section>
 
       <footer className="rodape">
