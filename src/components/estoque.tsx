@@ -6,6 +6,16 @@ interface EstoqueState {
   [key: string]: number;
 }
 
+interface Item {
+  id: string;
+  nomeProduto: string;
+  descricao: string;
+  preco: number;
+  quantidadeEstoque: number;
+  categoria: string;
+  imagemProduto: string | null;
+}
+
 const Estoque: React.FC = () => {
   const navigate = useNavigate();
 
@@ -22,7 +32,16 @@ const Estoque: React.FC = () => {
     };
   });
 
-  const [newItemName, setNewItemName] = useState('');
+  const [newItemDetails, setNewItemDetails] = useState({
+    nomeProduto: '',
+    descricao: '',
+    preco: '',
+    quantidadeEstoque: '',
+    categoria: '',
+    imagemProduto: null
+  });
+
+  const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
     localStorage.setItem('estoque', JSON.stringify(estoque));
@@ -73,27 +92,96 @@ const Estoque: React.FC = () => {
     }));
   };
 
-  const handleNewItemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewItemName(event.target.value);
+  const handleDetailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewItemDetails(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const handleAddNewItem = () => {
-    if (newItemName && !(newItemName in estoque)) {
-      setEstoque(prevState => ({
-        ...prevState,
-        [newItemName]: 0
-      }));
-      setNewItemName('');
+  const handleAddItemToAPI = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/produto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newItemDetails)
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setEstoque(prevState => ({
+          ...prevState,
+          [data.nomeProduto]: data.quantidadeEstoque
+        }));
+        setNewItemDetails({
+          nomeProduto: '',
+          descricao: '',
+          preco: '',
+          quantidadeEstoque: '',
+          categoria: '',
+          imagemProduto: null
+        });
+        alert('Item adicionado com sucesso!');
+        await fetchItensFromAPI(); // Atualizar os itens após adicionar novo item
+      } else {
+        alert('Erro ao adicionar item');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar item:', error);
+      alert('Erro ao adicionar item');
     }
   };
 
-  const handleDeleteItem = (itemName: keyof EstoqueState) => {
-    setEstoque(prevState => {
-      const newState = { ...prevState };
-      delete newState[itemName];
-      return newState;
-    });
+  const handleDeleteItem = async (id: string) => {
+    try {
+      const response = await fetch(`http://localhost:8080/produto/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        alert('Item excluído com sucesso!');
+        await fetchItensFromAPI(); // Atualizar os itens após excluir um item
+      } else {
+        alert('Erro ao excluir item');
+      }
+    } catch (error) {
+      console.error('Erro ao excluir item:', error);
+      alert('Erro ao excluir item');
+    }
   };
+
+  const fetchItensFromAPI = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/produto');
+      const data = await response.json();
+      console.log('API Response:', data);
+
+      if (Array.isArray(data)) {
+        const newEstoque = data.reduce((acc: any, item: Item) => {
+          if (item.nomeProduto) {
+            acc[item.nomeProduto] = item.quantidadeEstoque || 0;
+          }
+          return acc;
+        }, {});
+
+        setEstoque(prevState => ({
+          ...prevState,
+          ...newEstoque
+        }));
+
+        setItems(data); // Atualizar o estado dos itens com os dados recebidos
+      } else {
+        console.error('Error: API response is not an array', data);
+      }
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchItensFromAPI(); // Carregar itens na inicialização
+  }, []);
 
   return (
     <div>
@@ -118,32 +206,61 @@ const Estoque: React.FC = () => {
 
       <section className="estoque">
         <h2 className="estoque-titulo">ESTOQUE</h2>
-        <h2 className="estoque-sub">Geladeira</h2>
+        {/* <h2 className="estoque-sub">Geladeira</h2> */}
         <div className="item-list">
-          {Object.keys(estoque).map((item) => (
-            <div className="item" key={item}>
-              <span>{item}</span>
+          {items.map((item) => (
+            <div className="item" key={item.id}>
+              <span>{item.nomeProduto}</span>
               <div className="controls">
-                <button onClick={() => decrement(item as keyof EstoqueState)}>-</button>
+                <button onClick={() => decrement(item.nomeProduto as keyof EstoqueState)}>-</button>
                 <input
                   type="number"
-                  value={estoque[item as keyof EstoqueState]}
-                  onChange={(e) => handleInputChange(item as keyof EstoqueState, e)}
+                  value={estoque[item.nomeProduto as keyof EstoqueState]}
+                  onChange={(e) => handleInputChange(item.nomeProduto as keyof EstoqueState, e)}
                 />
-                <button onClick={() => increment(item as keyof EstoqueState)}>+</button>
-                <button onClick={() => handleDeleteItem(item as keyof EstoqueState)}>Excluir</button>
+                <button onClick={() => increment(item.nomeProduto as keyof EstoqueState)}>+</button>
+                <button onClick={() => handleDeleteItem(item.id)}>Excluir</button>
               </div>
             </div>
           ))}
         </div>
-        <div className="new-item-form">
+        <div className="new-item-details-form">
           <input
             type="text"
-            value={newItemName}
-            onChange={handleNewItemChange}
-            placeholder="Nome do novo item"
+            name="nomeProduto"
+            value={newItemDetails.nomeProduto}
+            onChange={handleDetailChange}
+            placeholder="Nome do Produto"
           />
-          <button onClick={handleAddNewItem}>Adicionar Item</button>
+          <input
+            type="text"
+            name="descricao"
+            value={newItemDetails.descricao}
+            onChange={handleDetailChange}
+            placeholder="Descrição"
+          />
+          <input
+            type="number"
+            name="preco"
+            value={newItemDetails.preco}
+            onChange={handleDetailChange}
+            placeholder="Preço"
+          />
+          <input
+            type="number"
+            name="quantidadeEstoque"
+            value={newItemDetails.quantidadeEstoque}
+            onChange={handleDetailChange}
+            placeholder="Quantidade em Estoque"
+          />
+          <input
+            type="text"
+            name="categoria"
+            value={newItemDetails.categoria}
+            onChange={handleDetailChange}
+            placeholder="Categoria"
+          />
+          <button onClick={handleAddItemToAPI}>Adicionar Item na API</button>
         </div>
       </section>
 
