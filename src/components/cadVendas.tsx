@@ -150,7 +150,7 @@ const CadVendas: React.FC = () => {
   };
 
   const handleCancel = () => {
-    navigate('/');
+    navigate('/adm_user');
   };
 
   const toggleMenu = async (menuId: number) => {
