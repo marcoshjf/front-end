@@ -82,7 +82,7 @@ const Fluxo: React.FC = () => {
 
         <section className="menu-section">
           <div className="menu">
-            <h2>Geladeira</h2>
+            <h2>Produtos</h2>
             <table>
               <tbody>
                 <tr>

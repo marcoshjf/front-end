@@ -25,7 +25,7 @@ const CadastroFuncionario: React.FC = () => {
   };
 
   const handleBackClick = () => {
-    navigate('/adm_user');
+    navigate('/');
   };
 
   return (

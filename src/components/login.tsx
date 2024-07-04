@@ -22,6 +22,10 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleCadastro = () => {
+    navigate('/cadFunc');
+  };
+
   return (
     <div>
       <div className="login">
@@ -53,6 +57,9 @@ const Login: React.FC = () => {
         <div className="botao">
           <button className="botao-entrar" onClick={handleLogin}>
             Login
+          </button>
+          <button className="botao-cadastrar" onClick={handleCadastro}>
+            Cadastrar Usuário
           </button>
         </div>
       </div>

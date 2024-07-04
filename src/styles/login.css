@@ -1,41 +1,41 @@
-
-/*importando fontes para o projeto*/
+/* importando fontes para o projeto */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Karantina:wght@300;400;700&display=swap');
-/*variaveis para o projeto*/
-:root{
+/* variáveis para o projeto */
+:root {
   --font-logo: Karantina;
   --cor-logo: #4C00B7;
   --cor-letras: #333333;
   --font-letras: Inter;
-  --cor-usuario:#CCCCCC;
+  --cor-usuario: #CCCCCC;
   --cor-botao: #6600DB;
 }
 
-/*estilo tela de login*/
-.login{
+/* estilo tela de login */
+.login {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-/*estilo logo*/
-.logo{
+
+/* estilo logo */
+.logo {
   font-weight: 400;
   font-family: var(--font-logo);
   color: var(--cor-logo);
   font-size: 5em;
 }
 
-/*palavra pro tem um tamanho diferente*/
-.pro{
+/* palavra pro tem um tamanho diferente */
+.pro {
   font-weight: 400;
   font-family: var(--font-logo);
   color: var(--cor-logo);
-  font-size: 0.5em; 
+  font-size: 0.5em;
 }
 
-/*estilo usuario e senha*/
-.usuario, .senha{
+/* estilo usuario e senha */
+.usuario, .senha {
   color: var(--cor-letras);
   font-family: var(--font-letras);
   font-weight: 400;
@@ -43,35 +43,38 @@
   font-size: 1em;
 }
 
-/*estilo placeholder*/
-.inserir-usuario, .inserir-senha{
+/* estilo placeholder */
+.inserir-usuario, .inserir-senha {
   width: 20em;
   height: 3em;
   border-radius: 10px;
   border: 1px solid #CCCCCC;
 }
-/*tirando o foco das bordas pra nao ficar preto quando clica*/
+
+/* tirando o foco das bordas pra nao ficar preto quando clica */
 .inserir-usuario:focus,
 .inserir-senha:focus {
   outline: none;
 }
 
 /* campo onde vai a senha */
-.inserir-usuario::placeholder{
+.inserir-usuario::placeholder,
+.inserir-senha::placeholder {
   color: var(--cor-usuario);
   font-family: var(--font-letras);
   font-weight: 400;
   font-size: 1em;
 }
 
-.inserir-senha::placeholder{
-  color: var(--cor-usuario);
-  font-family: var(--font-letras);
-  font-weight: 400;
-  font-size: 1em;
-}
 /* estilo botao login */
-.botao-entrar{
+.botao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.botao-entrar {
   background-color: var(--cor-botao);
   height: 3em;
   width: 21em;
@@ -84,17 +87,36 @@
   font-family: var(--font-letras);
 }
 
-/*hover do botao entrar web*/
-.botao-entrar:hover{
+/* hover do botao entrar web */
+.botao-entrar:hover {
   background-color: #CCCCCC;
   color: #333333;
   border: #333333;
 }
 
-/*Responsivo para o celular*/
-@media (max-width: 932px){
-  
-  .login{
+/* estilo botao cadastrar */
+.botao-cadastrar {
+  background-color: #4CAF50;
+  height: 3em;
+  width: 21em;
+  margin-top: 1em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 1em;
+  color: white;
+  text-align: center;
+  font-family: var(--font-letras);
+  cursor: pointer;
+}
+
+/* hover do botao cadastrar */
+.botao-cadastrar:hover {
+  background-color: #45a049;
+}
+
+/* Responsivo para o celular */
+@media (max-width: 932px) {
+  .login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -103,7 +125,7 @@
     margin-top: 20em;
   }
   
-  .logo{
+  .logo {
     font-weight: 400;
     font-family: var(--font-logo);
     color: var(--cor-logo);
@@ -111,15 +133,14 @@
     margin-right: 0.3em;  
   }
 
-  .pro{
+  .pro {
     font-weight: 400;
     font-family: var(--font-logo);
     color: var(--cor-logo);
     font-size: 0.5em; 
   }
   
-  
-  .usuario, .senha{
+  .usuario, .senha {
     color: var(--cor-letras);
     font-family: var(--font-letras);
     font-weight: 400;
@@ -127,16 +148,26 @@
     font-size: 0.8em;
   }
 
-  .ajuste{
+  .ajuste {
     margin-top: 4em;
   }
 
-  .botao-entrar{
+  .botao-entrar {
     margin-top: 6em;
     font-weight: 700;
   }
- 
 
+  .botao-cadastrar {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--cor-logo);
+    color: var(--cor-letras);
+    border: none;
+    cursor: pointer;
+  }
 
-
+  .botao-cadastrar:hover {
+    background-color: var(--cor-logo);
+  }
 }
